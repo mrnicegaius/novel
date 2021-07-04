@@ -41,6 +41,15 @@ chapters:
       - media:
         - audio:
             src: 'Source media 1a'
+        at_end:
+          type: decision
+          choices:
+            - long: Long description of choice
+              short: Short description of choice
+              action: test_state0 = '2a'
+
+            - short: Short description of choice
+              action: test_state0 = '2b'
 
   - id: p1c2a
     name: 'p1c2a'
@@ -68,7 +77,7 @@ players:
     path:
       p1c1a:
         - id: p1c2a
-          condition: test_state0 = 'tested'
+          condition: test_state0 = '2a'
         - id: p1c2b
       p1c2a:
         - id: p1c3a
