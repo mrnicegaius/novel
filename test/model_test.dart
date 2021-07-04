@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:novel/model/novel.dart';
+import 'package:novel/model/chapter.dart';
 import 'package:yaml/yaml.dart';
 
 const _basicNovel = '''
@@ -57,6 +58,8 @@ chapters:
       - media:
         - audio:
             src: 'Source media 2a'
+        at_end:
+          type: pause
 
   - id: p1c2b
     name: 'p1c2b'
@@ -64,6 +67,8 @@ chapters:
       - media:
         - audio:
             src: 'Source media 2b'
+        at_end:
+          type: continue
 
   - id: p1c3a
     name: 'p1c3a'
@@ -93,5 +98,9 @@ void main() {
 
   test('Novel can be loaded from branching yaml config', () {
     var novel = Novel.fromJson(loadYaml(_branchingNovel));
+
+    // Check at_end types
+    expect(novel.chapters[0].subs[0].atEnd.type, equals(EndType.decision));
+
   });
 }

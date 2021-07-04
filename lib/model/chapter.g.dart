@@ -84,14 +84,16 @@ SubChapter _$SubChapterFromJson(Map json) {
           (v) => (v as List<dynamic>)
               .map((e) => Media.fromJson(e as Map))
               .toList()),
+      atEnd: $checkedConvert(json, 'at_end', (v) => v),
     );
     return val;
-  });
+  }, fieldKeyMap: const {'atEnd': 'at_end'});
 }
 
 Map<String, dynamic> _$SubChapterToJson(SubChapter instance) =>
     <String, dynamic>{
       'media': instance.media,
+      'at_end': instance.atEnd,
     };
 
 Chapter _$ChapterFromJson(Map json) {
