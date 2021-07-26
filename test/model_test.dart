@@ -91,6 +91,44 @@ players:
 
 ''';
 
+const _basicMultiNovel = '''
+chapters:
+  - id: p12c1a
+    subs:
+      - media:
+        - audio:
+            src: 'Source media 1a'
+
+  - id: p1c2a
+    subs:
+      - media:
+        - audio:
+            src: 'Source media 2a'
+
+  - id: p2c2a
+    subs:
+      - media:
+        - audio:
+            src: 'Source media 2b'
+
+  - id: p12c3a
+    subs:
+      - media:
+        - audio:
+            src: 'Source media 3a'
+
+players:
+  - chapter_entry: p12c1a
+    path:
+      p12c1a: [{ id: p1c2a }]
+      p1c2a: [{ id: p12c3a }]
+
+  - chapter_entry: p12c1a
+    path:
+      p12c1a: [{ id: p2c2a }]
+      p2c2a: [{ id: p12c3a }]
+''';
+
 void main() {
   test('Novel can be loaded from basic yaml config', () {
     var novel = Novel.fromJson(loadYaml(_basicNovel));
@@ -102,5 +140,9 @@ void main() {
     // Check at_end types
     expect(novel.chapters[0].subs[0].atEnd.type, equals(EndType.decision));
 
+  });
+
+  test('Novel can be loaded from multi player yaml config', () {
+    var novel = Novel.fromJson(loadYaml(_basicMultiNovel));
   });
 }
